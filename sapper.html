@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="jquery-1.10.2.js"></script>
+    <script src="common.js"></script>
+    <style>
+        table {
+            margin: 50px 0;
+            text-align: center;
+            border-collapse: separate;
+            border: 1px solid rgb(17, 74, 255);
+            border-spacing: 3px;
+            border-radius: 7px;
+            background: rgb(17, 74, 255);
+            font-size: 34px;
+            width: auto;
+        }
+
+        td, th {
+            /*border: 1px solid rgb(17, 74, 255);*/
+            padding: 16px;
+            border-radius: 13px;
+            border-style: outset;
+        }
+
+        th {
+            background: #E4E4E4;
+            border-style: none;
+        }
+
+        caption {
+            font-style: italic;
+            text-align: right;
+            color: #547901;
+        }
+        select,input{
+            border-radius: 2px;
+            height: 34px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            line-height: 2;
+        }
+        input {
+            height: 20px!important;
+        }
+    </style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sapper</title>
+</head>
+    <body>
+
+    <div style="text-align: center;">
+        <select id="levelSelector">
+            <option value="0">Low</option>
+            <option selected="selected" value="1">Middle</option>
+            <option value="2">Hight</option>
+            <option value="3">Custom</option>
+        </select>
+        <input class="tableparametr" hidden="hidden" placeholder="rows" type="number" min="9" value="9" max="150" id="rowsInput" />
+        <input class="tableparametr" hidden="hidden" placeholder="colums" type="number" min="9" value="9" max="150" id="columnsInput" />
+        <input class="tableparametr" hidden="hidden" placeholder="mines" type="number" min="1" value="3" max="100" id="minsInput" />
+        <center>
+            <table id="sappertable"></table>
+        </center>
+
+    </div>
+
+    <script>
+                $(document).ready(function () {
+                    
+                    var sapper = new Sapper("#sappertable");
+                    sapper.CreateSapperMap(LevelEnum.Middle);
+                    $('#levelSelector').change(function () {
+                        var level = $(this).val();
+                   
+                        if (level != 3) {
+                            $('.tableparametr').hide();
+                            sapper.CreateSapperMap(level);
+                        } else {
+                            $('.tableparametr').show();
+                            sapper.CreateSapperMap($('#rowsInput').val(), $('#columnsInput').val(), $("#minsInput").val());
+                        }
+                    });
+
+                    $('.tableparametr').change(function () {
+                        if ($('#levelSelector').val() == 3) {
+                            sapper.CreateSapperMap($('#rowsInput').val(), $('#columnsInput').val(), $("#minsInput").val());
+                        }
+                    });
+
+                })
+            </script>
+
+        </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
